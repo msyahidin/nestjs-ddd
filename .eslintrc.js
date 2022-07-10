@@ -4,6 +4,7 @@ module.exports = {
         project: 'tsconfig.json',
         sourceType: 'module',
     },
+    ignorePatterns: ['.eslintrc.js'],
     plugins: ['@typescript-eslint/eslint-plugin'],
     extends: [
         'plugin:@typescript-eslint/eslint-recommended',
@@ -11,7 +12,6 @@ module.exports = {
         'plugin:import/errors',
         'plugin:import/warnings',
         'plugin:import/typescript',
-        'prettier',
         'plugin:prettier/recommended',
     ],
     root: true,
@@ -24,7 +24,7 @@ module.exports = {
         '@typescript-eslint/explicit-function-return-type': 'off',
         '@typescript-eslint/no-explicit-any': 'off',
         'import/order': [
-            'error',
+            'warn',
             {
                 'newlines-between': 'always',
                 groups: [

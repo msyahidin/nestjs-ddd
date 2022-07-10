@@ -11,7 +11,7 @@ import { QueryHandlers } from './queries/handlers';
 import { UserRepository } from './repository/user.repository';
 import { UsersSagas } from './sagas/users.sagas';
 import { UsersService } from './services/users.service';
-import {CqrsModule} from "@nestjs/cqrs";
+import { CqrsModule } from '@nestjs/cqrs';
 
 @Module({
     imports: [
