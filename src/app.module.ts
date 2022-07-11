@@ -23,6 +23,7 @@ import { ConfigService } from './shared/services/config.service';
         }),
         CacheModule.registerAsync({
             useClass: CacheConfigService,
+            isGlobal: true,
         }),
     ],
     controllers: [AppController],
