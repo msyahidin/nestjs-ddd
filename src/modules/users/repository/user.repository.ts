@@ -1,5 +1,5 @@
 import { Repository } from 'typeorm';
-import * as uuidv4 from 'uuid/v4';
+import { v4 as uuidv4 } from 'uuid';
 
 import { UserRegisterDto } from '../dtos/user-register.dto';
 import { User } from '../entities/user.entity';
