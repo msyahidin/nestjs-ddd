@@ -1,6 +1,5 @@
 // import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { Module } from '@nestjs/common';
-// import { GraphQLModule } from '@nestjs/graphql';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { CommandHandlers } from './commands/handlers';
@@ -17,12 +16,6 @@ import { CqrsModule } from '@nestjs/cqrs';
     imports: [
         TypeOrmModule.forFeature([UserRepository]),
         CqrsModule,
-        // GraphQLModule.forRootAsync({
-        //     driver: ApolloDriver,
-        //     useFactory: () => ({
-        //         typePaths: ['./**/*.graphql'],
-        //     }),
-        // }),
     ],
     controllers: [UsersController],
     providers: [

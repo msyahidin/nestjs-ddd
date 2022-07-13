@@ -13,8 +13,11 @@ export function setupSwagger(
         .setVersion(config.version)
         .addBearerAuth()
         .addServer(`${config.scheme}://`)
+        .setBasePath('/')
         .build();
 
-    const document = SwaggerModule.createDocument(app, options);
+    const document = SwaggerModule.createDocument(app, options, {
+        ignoreGlobalPrefix: true,
+    });
     SwaggerModule.setup(config.path, app, document);
 }
