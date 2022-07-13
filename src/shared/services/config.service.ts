@@ -166,4 +166,18 @@ export class ConfigService {
             exitOnError: false,
         };
     }
+
+    get redis() {
+        return {
+            host: this.get('REDIS_HOST') || '127.0.0.1',
+            url: this.get('REDIS_URL'),
+            port: this.get('REDIS_PORT') || '6379',
+            password: this.get('REDIS_PASSWORD'),
+            role: this.get('REDIS_ROLE'),
+            user: this.get('REDIS_USER'),
+            prefix: this.get('REDIS_PREFIX') || 'nest_cache:',
+            connectionName: this.get('REDIS_CONNECTION_NAME') || 'NEST_CACHE',
+            ttl: this.get('REDIS_TTL') || 3600,
+        };
+    }
 }
