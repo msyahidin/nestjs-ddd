@@ -12,12 +12,9 @@ export function setupSwagger(
         .setDescription(config.description)
         .setVersion(config.version)
         .addBearerAuth()
-        .addServer(`${config.scheme}://`)
-        .setBasePath('/')
+        // .addServer(`${config.scheme}://`)
         .build();
 
-    const document = SwaggerModule.createDocument(app, options, {
-        ignoreGlobalPrefix: true,
-    });
+    const document = SwaggerModule.createDocument(app, options);
     SwaggerModule.setup(config.path, app, document);
 }
