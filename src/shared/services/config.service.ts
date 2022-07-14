@@ -34,9 +34,30 @@ export class ConfigService {
         return this.get('NODE_ENV') || 'development';
     }
 
+    get app() {
+        return {
+            env: this.nodeEnv,
+            version: this.get('API_VERSION'),
+            url: this.get('API_URL'),
+            cors: this.get('CORS'),
+            prefix: this.apiPrefix,
+        };
+    }
+
+    get apiPrefix() {
+        let prefix = this.get('API_PREFIX');
+        if (!prefix) {
+            prefix = '';
+        }
+        if (prefix == 'version') {
+            prefix = this.get('API_VERSION');
+        }
+        return prefix;
+    }
+
     get swaggerConfig(): ISwaggerConfigInterface {
         return {
-            path: this.get('SWAGGER_PATH') || '/api/docs',
+            path: this.get('SWAGGER_PATH') || 'api/docs',
             title: this.get('SWAGGER_TITLE') || 'B2H Microservice API',
             description: this.get('SWAGGER_DESCRIPTION'),
             version: this.get('SWAGGER_VERSION') || '0.0.1',

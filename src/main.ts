@@ -4,8 +4,8 @@ import {
     NestExpressApplication,
     ExpressAdapter,
 } from '@nestjs/platform-express';
-import rateLimit from 'express-rate-limit'
-import helmet from "helmet";
+import rateLimit from 'express-rate-limit';
+import helmet from 'helmet';
 import * as morgan from 'morgan'; // HTTP request logger
 
 import { AppModule } from './app.module';
@@ -59,6 +59,7 @@ async function bootstrap() {
     );
 
     const configService = app.select(SharedModule).get(ConfigService);
+    app.setGlobalPrefix(configService.app.prefix);
 
     if (['development', 'staging'].includes(configService.nodeEnv)) {
         setupSwagger(app, configService.swaggerConfig);
@@ -66,6 +67,10 @@ async function bootstrap() {
 
     const port = configService.getNumber('PORT') || 3000;
     const host = configService.get('HOST') || '127.0.0.1';
+    if (configService.app.cors) {
+        app.enableCors();
+    }
+
     await app.listen(port, host);
 
     loggerService.warn(`server running on port ${host}:${port}`);
