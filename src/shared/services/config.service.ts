@@ -1,5 +1,10 @@
+import path from 'path';
+
+import { LoggingWinston } from '@google-cloud/logging-winston';
+import { LogLevel } from '@nestjs/common';
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import * as dotenv from 'dotenv';
+import { I18nOptionsWithoutResolvers } from 'nestjs-i18n';
 import * as winston from 'winston';
 import * as DailyRotateFile from 'winston-daily-rotate-file';
 
@@ -36,11 +41,15 @@ export class ConfigService {
 
     get app() {
         return {
+            name: this.get('APP_NAME'),
             env: this.nodeEnv,
             version: this.get('API_VERSION'),
+            versionDefault: this.get('API_VERSION_DEFAULT'),
+            versionKey: this.get('API_VERSION_KEY') || 'x-api-version',
             url: this.get('API_URL'),
             cors: this.get('CORS'),
             prefix: this.apiPrefix,
+            defaultLang: this.get('APP_DEFAULT_LANG') || 'en',
         };
     }
 
@@ -75,7 +84,7 @@ export class ConfigService {
                 true,
                 /\.entity\.ts$/,
             );
-            entities = entityContext.keys().map(id => {
+            entities = entityContext.keys().map((id) => {
                 const entityModule = entityContext(id);
                 const [entity] = Object.values(entityModule);
                 return entity;
@@ -85,7 +94,7 @@ export class ConfigService {
                 false,
                 /\.ts$/,
             );
-            migrations = migrationContext.keys().map(id => {
+            migrations = migrationContext.keys().map((id) => {
                 const migrationModule = migrationContext(id);
                 const [migration] = Object.values(migrationModule);
                 return migration;
@@ -146,44 +155,53 @@ export class ConfigService {
     }
 
     get winstonConfig(): winston.LoggerOptions {
+        let transports = [
+            new DailyRotateFile({
+                level: 'debug',
+                filename: `./logs/${this.nodeEnv}/debug-%DATE%.log`,
+                datePattern: 'YYYY-MM-DD',
+                zippedArchive: true,
+                maxSize: '20m',
+                maxFiles: '14d',
+                format: winston.format.combine(
+                    winston.format.timestamp(),
+                    winston.format.json(),
+                ),
+            }),
+            new DailyRotateFile({
+                level: 'error',
+                filename: `./logs/${this.nodeEnv}/error-%DATE%.log`,
+                datePattern: 'YYYY-MM-DD',
+                zippedArchive: false,
+                maxSize: '20m',
+                maxFiles: '30d',
+                format: winston.format.combine(
+                    winston.format.timestamp(),
+                    winston.format.json(),
+                ),
+            }),
+            new winston.transports.Console({
+                level: 'debug',
+                handleExceptions: true,
+                format: winston.format.combine(
+                    winston.format.colorize(),
+                    winston.format.timestamp({
+                        format: 'DD-MM-YYYY HH:mm:ss',
+                    }),
+                    winston.format.simple(),
+                ),
+            }),
+        ];
+
+        if (this.log.enabled) {
+            const logTransport = this.googleLogTransport;
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            transports = [...transports, logTransport];
+        }
+
         return {
-            transports: [
-                new DailyRotateFile({
-                    level: 'debug',
-                    filename: `./logs/${this.nodeEnv}/debug-%DATE%.log`,
-                    datePattern: 'YYYY-MM-DD',
-                    zippedArchive: true,
-                    maxSize: '20m',
-                    maxFiles: '14d',
-                    format: winston.format.combine(
-                        winston.format.timestamp(),
-                        winston.format.json(),
-                    ),
-                }),
-                new DailyRotateFile({
-                    level: 'error',
-                    filename: `./logs/${this.nodeEnv}/error-%DATE%.log`,
-                    datePattern: 'YYYY-MM-DD',
-                    zippedArchive: false,
-                    maxSize: '20m',
-                    maxFiles: '30d',
-                    format: winston.format.combine(
-                        winston.format.timestamp(),
-                        winston.format.json(),
-                    ),
-                }),
-                new winston.transports.Console({
-                    level: 'debug',
-                    handleExceptions: true,
-                    format: winston.format.combine(
-                        winston.format.colorize(),
-                        winston.format.timestamp({
-                            format: 'DD-MM-YYYY HH:mm:ss',
-                        }),
-                        winston.format.simple(),
-                    ),
-                }),
-            ],
+            transports,
             exitOnError: false,
         };
     }
@@ -199,6 +217,100 @@ export class ConfigService {
             prefix: this.get('REDIS_PREFIX') || 'nest_cache:',
             connectionName: this.get('REDIS_CONNECTION_NAME') || 'NEST_CACHE',
             ttl: this.get('REDIS_TTL') || 3600,
+        };
+    }
+
+    get newrelic() {
+        return {
+            enabled: this.get('NEWRELIC_ENABLED') == 'true' || false,
+            appName: this.get('NEWRELIC_APP_NAME') || this.get('APP_NAME'),
+            licenseKey: this.get('NEWRELIC_LICENSE_KEY'),
+            log: {
+                level: this.get('NEWRELIC_LOG_LEVEL'),
+            },
+            distributeTracing: {
+                enabled:
+                    this.get('NEWRELIC_DISTRIBUTE_TRACING_ENABLED') == 'true' ||
+                    false,
+            },
+            transactionTracer: {
+                enabled:
+                    this.get('NEWRELIC_TRANSACTION_ENABLED') == 'true' || false,
+                recordSQL: this.get('NEWRELIC_TRANSACTION_RECORD_SQL'),
+                explainThreshold: this.get(
+                    'NEWRELIC_TRANSACTION_EXPLAIN_THRESHOLD',
+                ),
+            },
+            slowSql: {
+                enabled:
+                    this.get('NEWRELIC_SLOW_SQL_ENABLED') == 'true' || false,
+                maxSamples: this.get('NEWRELIC_SLOW_SQL_MAX_SAMPLES'),
+            },
+        };
+    }
+
+    get googleLogTransport() {
+        return new LoggingWinston({
+            logName: this.get('LOG_NAME') + '_' + this.nodeEnv,
+            defaultCallback: (err) => {
+                if (err) {
+                    console.log(`Error occurred: ${err}`);
+                }
+            },
+        });
+    }
+
+    get log() {
+        let logLevels: LogLevel[] = [
+            'log',
+            'warn',
+            'error',
+            'verbose',
+            'debug',
+        ];
+        if (this.get('LOG_LEVELS')) {
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            logLevels = this.get('LOG_LEVELS').split(',');
+        }
+
+        return {
+            enabled: this.get('LOG_ENABLED') == 'true' || false,
+            driver: this.get('LOG_DRIVER') || 'google',
+            name: this.get('LOG_NAME') || this.app.name,
+            levels: logLevels,
+            morgan: {
+                enabled: this.get('LOG_MORGAN_ENABLED') == 'true' || false,
+            },
+        };
+    }
+
+    get headerKey() {
+        return {
+            appVersion: this.get('HEADER_APP_VERSION') || 'x-version',
+            appPlatform: this.get('HEADER_APP_DEVICE') || 'x-device',
+            timezone: this.get('HEADER_TIMEZONE') || 'x-timezone',
+            lang: this.get('HEADER_LANG') || 'x-lang',
+        };
+    }
+
+    get i18nConfig(): I18nOptionsWithoutResolvers {
+        return {
+            fallbackLanguage: 'id',
+            loaderOptions: {
+                path: path.join(__dirname, '../../assets/i18n/'),
+                watch: true,
+            },
+        };
+    }
+
+    get rateLimit() {
+        return {
+            enabled: this.get('RATE_LIMIT_ENABLED') == 'true' || false,
+            windowMs:
+                this.getNumber('RATE_LIMIT_WINDOWMS') * 60 * 1000 ||
+                15 * 60 * 1000,
+            max: this.getNumber('RATE_LIMIT_MAX') || 300,
         };
     }
 }
