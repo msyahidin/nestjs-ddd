@@ -10,7 +10,8 @@
       "Bash(/Users/msyahidin/.nvm/versions/node/v22.13.1/bin/node /Users/msyahidin/.nvm/versions/node/v22.13.1/bin/npm install --save @nestjs/cache-manager)",
       "Bash(export PATH=\"/Users/msyahidin/.nvm/versions/node/v22.13.1/bin:$PATH\")",
       "Bash(npm install:*)",
-      "Bash(export PATH=/Users/msyahidin/.nvm/versions/node/v22.13.1/bin:$PATH)"
+      "Bash(export PATH=/Users/msyahidin/.nvm/versions/node/v22.13.1/bin:$PATH)",
+      "Bash(npm run:*)"
     ]
   }
 }

@@ -35,7 +35,7 @@ export class UserRepository {
         return updatedUser;
     }
 
-    async deleteUser(userDto) {
+    async deleteUser(_userDto) {
         // Todo
         const user = new User();
         user.delete();
