@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { CacheModuleOptions, CacheOptionsFactory } from '@nestjs/cache-manager';
-import * as redisStore from 'cache-manager-redis-store';
+import KeyvRedis from '@keyv/redis';
 
 import { ConfigService } from './config.service';
 
@@ -9,14 +9,23 @@ class CacheConfigService implements CacheOptionsFactory {
     constructor(public configService: ConfigService) {}
 
     createCacheOptions(): CacheModuleOptions {
+        const { url, host, port, password, prefix, ttl } = this.configService.redis;
+
+        // Embed password in URL so @keyv/redis can authenticate
+        let redisUrl = url;
+        if (!redisUrl) {
+            redisUrl = password
+                ? `redis://:${encodeURIComponent(password)}@${host}:${port}`
+                : `redis://${host}:${port}`;
+        }
+
         return {
-            store: redisStore,
-            host: this.configService.redis.host,
-            port: this.configService.redis.port,
-            keyPrefix: this.configService.redis.prefix,
-            username: this.configService.redis.user,
-            password: this.configService.redis.password,
-            ttl: +this.configService.redis.ttl,
+            stores: [
+                new KeyvRedis(redisUrl, {
+                    namespace: prefix, // KeyvRedis uses `namespace` as the key prefix
+                }),
+            ],
+            ttl: +ttl * 1000, // cache-manager v6 uses milliseconds
         };
     }
 }
