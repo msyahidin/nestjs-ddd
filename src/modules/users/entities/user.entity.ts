@@ -1,4 +1,4 @@
-import { plainToClass } from 'class-transformer';
+import { plainToInstance } from 'class-transformer';
 import { Entity, Column } from 'typeorm';
 
 import { AbstractEntity } from '../../../common/abstract.entity';
@@ -20,7 +20,7 @@ export class User extends AbstractEntity {
     email: string;
 
     toDto() {
-        return plainToClass(UserDto, this);
+        return plainToInstance(UserDto, this);
     }
 
     create() {

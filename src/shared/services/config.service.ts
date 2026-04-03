@@ -103,7 +103,6 @@ export class ConfigService {
         return {
             entities,
             migrations,
-            keepConnectionAlive: true,
             type: 'mysql',
             host: this.get('MYSQL_HOST'),
             port: this.getNumber('MYSQL_PORT'),
