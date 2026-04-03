@@ -1,8 +1,6 @@
-import { IAggregateEvent } from 'nestjs-eventstore';
-
 import { UserDto } from '../../dtos/user.dto';
 
-export class UserAbstractEvent implements IAggregateEvent {
+export class UserAbstractEvent {
     constructor(public readonly userDto: UserDto) {}
     get streamName() {
         return `users-${this.userDto.id}`;

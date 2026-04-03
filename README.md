@@ -1,4 +1,3 @@
-
 ## Description
 
 Microservice boilerplate based on [NestJS v10](https://github.com/nestjs/nest), built with TypeScript.

@@ -13,7 +13,7 @@ declare global {
 
 Array.prototype.toDtos = function <B extends AbstractDto>(): B[] {
     return _(this)
-        .map((item) => item.toDto())
+        .map(item => item.toDto())
         .compact()
         .value() as B[];
 };

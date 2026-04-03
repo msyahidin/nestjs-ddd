@@ -7,6 +7,8 @@ import {
     Delete,
     Put,
     HttpStatus,
+    Inject,
+    CACHE_MANAGER,
 } from '@nestjs/common';
 import { ApiTags, ApiResponse, ApiOperation } from '@nestjs/swagger';
 
@@ -18,7 +20,10 @@ import { UsersService } from '../services/users.service';
 @Controller('users')
 @ApiTags('Users')
 export class UsersController {
-    constructor(private readonly _usersService: UsersService) {}
+    constructor(
+        private readonly _usersService: UsersService,
+        @Inject(CACHE_MANAGER) private cacheManager,
+    ) {}
 
     /* Create User */
     @ApiOperation({ summary: 'Create User' })
@@ -47,15 +52,14 @@ export class UsersController {
         return this._usersService.deleteUser(id);
     }
 
-    /* Get users */
     @ApiOperation({ summary: 'List Users' })
     @ApiResponse({ status: HttpStatus.OK, description: 'List Users.' })
     @Get()
     async findUsers(): Promise<UserDto[]> {
+        this.cacheManager.set('test', 123123);
         return this._usersService.findUsers();
     }
 
-    /* Get user*/
     @ApiOperation({ summary: 'Get User' })
     @ApiResponse({ status: HttpStatus.OK, description: 'Get User.' })
     @Get(':id')

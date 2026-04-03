@@ -1,15 +1,14 @@
 import './boilerplate.polyfill';
-import { Module } from '@nestjs/common';
+import { CacheModule, Module } from '@nestjs/common';
 import { TerminusModule } from '@nestjs/terminus';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { EventStoreCqrsModule } from 'nestjs-eventstore';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './modules/users/users.module';
-import { eventStoreBusConfig } from './providers/event-bus.provider';
-import { ConfigService } from './shared/services/config.service';
 import { SharedModule } from './shared.module';
+import { CacheConfigService } from './shared/services/cache.service';
+import { ConfigService } from './shared/services/config.service';
 
 @Module({
     imports: [
@@ -21,19 +20,10 @@ import { SharedModule } from './shared.module';
                 configService.typeOrmConfig,
             inject: [ConfigService],
         }),
-        EventStoreCqrsModule.forRootAsync(
-            {
-                useFactory: async (config: ConfigService) => {
-                    return {
-                        connectionSettings:
-                            config.eventStoreConfig.connectionSettings,
-                        endpoint: config.eventStoreConfig.tcpEndpoint,
-                    };
-                },
-                inject: [ConfigService],
-            },
-            eventStoreBusConfig,
-        ),
+        CacheModule.registerAsync({
+            useClass: CacheConfigService,
+            isGlobal: true,
+        }),
     ],
     controllers: [AppController],
     providers: [AppService],
