@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { CqrsModule } from '@nestjs/cqrs';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { CommandHandlers } from './commands/handlers';
@@ -11,6 +12,7 @@ import { UsersService } from './services/users.service';
 
 @Module({
     imports: [
+        CqrsModule,
         TypeOrmModule.forFeature([UserRepository]),
     ],
     controllers: [UsersController],

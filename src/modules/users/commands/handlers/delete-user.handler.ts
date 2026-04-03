@@ -1,6 +1,5 @@
 import { Logger } from '@nestjs/common';
-import { ICommandHandler, CommandHandler } from '@nestjs/cqrs';
-import { EventPublisher } from 'nestjs-eventstore';
+import { ICommandHandler, CommandHandler, EventPublisher } from '@nestjs/cqrs';
 
 import { UserRepository } from '../../repository/user.repository';
 import { DeleteUserCommand } from '../impl/delete-user.command';

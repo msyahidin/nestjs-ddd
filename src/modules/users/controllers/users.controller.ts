@@ -8,8 +8,8 @@ import {
     Put,
     HttpStatus,
     Inject,
-    CACHE_MANAGER,
 } from '@nestjs/common';
+import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { ApiTags, ApiResponse, ApiOperation } from '@nestjs/swagger';
 
 import { UserIdRequestParamsDto } from '../dtos/user-id-request-params.dto';

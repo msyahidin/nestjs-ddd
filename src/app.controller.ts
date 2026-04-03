@@ -1,15 +1,12 @@
 import { Controller, Get, HttpStatus, HttpCode } from '@nestjs/common';
-import { Transport } from '@nestjs/microservices';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import {
-    MicroserviceHealthIndicator,
     TypeOrmHealthIndicator,
     HealthCheck,
     HealthCheckService,
 } from '@nestjs/terminus';
 
 import { AppService } from './app.service';
-import { ConfigService } from './shared/services/config.service';
 import { LoggerService } from './shared/services/logger.service';
 
 @Controller('/')
@@ -19,9 +16,7 @@ export class AppController {
         private readonly _appService: AppService,
         private readonly _logger: LoggerService,
         private health: HealthCheckService,
-        private readonly microservice: MicroserviceHealthIndicator,
         private readonly db: TypeOrmHealthIndicator,
-        private readonly configService: ConfigService,
     ) {}
 
     @Get('/')
