@@ -1,0 +1,23 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "NestJS Dev (watch)",
+      "runtimeExecutable": "/bin/sh",
+      "runtimeArgs": ["-c", "export PATH=/Users/msyahidin/.nvm/versions/node/v22.13.1/bin:$PATH && npm run start:dev"],
+      "port": 4000
+    },
+    {
+      "name": "NestJS Start",
+      "runtimeExecutable": "/bin/sh",
+      "runtimeArgs": ["-c", "export PATH=/Users/msyahidin/.nvm/versions/node/v22.13.1/bin:$PATH && npm run start"],
+      "port": 4000
+    },
+    {
+      "name": "NestJS Debug",
+      "runtimeExecutable": "/bin/sh",
+      "runtimeArgs": ["-c", "export PATH=/Users/msyahidin/.nvm/versions/node/v22.13.1/bin:$PATH && npm run start:debug"],
+      "port": 4000
+    }
+  ]
+}

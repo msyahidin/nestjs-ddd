@@ -3,13 +3,13 @@ import * as winston from 'winston';
 
 import { ConfigService } from './config.service';
 import { HttpArgumentsHost } from '@nestjs/common/interfaces/features/arguments-host.interface';
-import { Request, Response } from 'express';
+import { Request } from 'express';
 
 @Injectable()
 export class LoggerService extends ConsoleLogger {
     private readonly _logger: winston.Logger;
 
-    constructor(private readonly _configService: ConfigService) {
+    constructor(_configService: ConfigService) {
         super(LoggerService.name, {
             timestamp: true,
             logLevels: _configService.log.levels,
@@ -51,7 +51,6 @@ export class LoggerService extends ConsoleLogger {
             contextName: string;
         },
     ) {
-        const response = meta.httpContext.getResponse<Response>();
         const request = meta.httpContext.getRequest<Request>();
         const formatted = {
             headers: request.headers,

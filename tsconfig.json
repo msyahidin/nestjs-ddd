@@ -13,9 +13,16 @@
         "sourceMap": true,
         "allowJs": true,
         "outDir": "./dist",
-        "baseUrl": "./"
+        "rootDir": "./",
         "baseUrl": "./",
-        "incremental": true
+        "incremental": true,
+        "skipLibCheck": true,
+        "paths": {
+            "@/*": ["./src/*"],
+            "@modules/*": ["./src/modules/*"],
+            "@shared/*": ["./src/shared/*"],
+            "@common/*": ["./src/common/*"]
+        }
     },
     "include": ["src/**/*"],
     "exclude": [

@@ -1,0 +1,1206 @@
+{
+  "auditReportVersion": 2,
+  "vulnerabilities": {
+    "@apollo/server": {
+      "name": "@apollo/server",
+      "severity": "moderate",
+      "isDirect": false,
+      "via": [
+        {
+          "source": 1115452,
+          "name": "@apollo/server",
+          "dependency": "@apollo/server",
+          "title": "Apollo Server: Browser bug allows for bypass of XS-Search (read-only Cross-Site Request Forgery) prevention",
+          "url": "https://github.com/advisories/GHSA-9q82-xgwf-vj6h",
+          "severity": "moderate",
+          "cwe": [
+            "CWE-200"
+          ],
+          "cvss": {
+            "score": 0,
+            "vectorString": null
+          },
+          "range": "<5.5.0"
+        }
+      ],
+      "effects": [
+        "@apollo/server-plugin-landing-page-graphql-playground",
+        "@nestjs/apollo"
+      ],
+      "range": "<5.5.0",
+      "nodes": [
+        "node_modules/@apollo/server"
+      ],
+      "fixAvailable": {
+        "name": "@nestjs/apollo",
+        "version": "13.2.4",
+        "isSemVerMajor": true
+      }
+    },
+    "@apollo/server-plugin-landing-page-graphql-playground": {
+      "name": "@apollo/server-plugin-landing-page-graphql-playground",
+      "severity": "moderate",
+      "isDirect": false,
+      "via": [
+        "@apollo/server"
+      ],
+      "effects": [
+        "@nestjs/apollo"
+      ],
+      "range": "*",
+      "nodes": [
+        "node_modules/@apollo/server-plugin-landing-page-graphql-playground"
+      ],
+      "fixAvailable": {
+        "name": "@nestjs/apollo",
+        "version": "13.2.4",
+        "isSemVerMajor": true
+      }
+    },
+    "@google-cloud/common": {
+      "name": "@google-cloud/common",
+      "severity": "low",
+      "isDirect": false,
+      "via": [
+        "teeny-request"
+      ],
+      "effects": [
+        "@google-cloud/logging"
+      ],
+      "range": "4.0.0 - 5.0.2",
+      "nodes": [
+        "node_modules/@google-cloud/common"
+      ],
+      "fixAvailable": {
+        "name": "@google-cloud/logging-winston",
+        "version": "6.0.1",
+        "isSemVerMajor": true
+      }
+    },
+    "@google-cloud/logging": {
+      "name": "@google-cloud/logging",
+      "severity": "critical",
+      "isDirect": false,
+      "via": [
+        "@google-cloud/common",
+        "google-gax"
+      ],
+      "effects": [
+        "@google-cloud/logging-winston"
+      ],
+      "range": ">=10.0.4",
+      "nodes": [
+        "node_modules/@google-cloud/logging"
+      ],
+      "fixAvailable": {
+        "name": "@google-cloud/logging-winston",
+        "version": "6.0.1",
+        "isSemVerMajor": true
+      }
+    },
+    "@google-cloud/logging-winston": {
+      "name": "@google-cloud/logging-winston",
+      "severity": "critical",
+      "isDirect": true,
+      "via": [
+        "@google-cloud/logging"
+      ],
+      "effects": [],
+      "range": "5.1.4 - 5.3.0",
+      "nodes": [
+        "node_modules/@google-cloud/logging-winston"
+      ],
+      "fixAvailable": {
+        "name": "@google-cloud/logging-winston",
+        "version": "6.0.1",
+        "isSemVerMajor": true
+      }
+    },
+    "@nestjs/apollo": {
+      "name": "@nestjs/apollo",
+      "severity": "high",
+      "isDirect": true,
+      "via": [
+        "@apollo/server",
+        "@apollo/server-plugin-landing-page-graphql-playground",
+        "@nestjs/core",
+        "@nestjs/graphql"
+      ],
+      "effects": [],
+      "range": "*",
+      "nodes": [
+        "node_modules/@nestjs/apollo"
+      ],
+      "fixAvailable": {
+        "name": "@nestjs/apollo",
+        "version": "13.2.4",
+        "isSemVerMajor": true
+      }
+    },
+    "@nestjs/common": {
+      "name": "@nestjs/common",
+      "severity": "moderate",
+      "isDirect": true,
+      "via": [
+        "file-type"
+      ],
+      "effects": [],
+      "range": "10.4.16 - 10.4.22 || 11.0.16 - 11.1.16 || >=12.0.0-alpha.0",
+      "nodes": [
+        "node_modules/@nestjs/common"
+      ],
+      "fixAvailable": true
+    },
+    "@nestjs/core": {
+      "name": "@nestjs/core",
+      "severity": "high",
+      "isDirect": true,
+      "via": [
+        "@nestjs/microservices",
+        "@nestjs/platform-express"
+      ],
+      "effects": [
+        "@nestjs/apollo",
+        "@nestjs/cqrs",
+        "@nestjs/graphql",
+        "@nestjs/microservices",
+        "@nestjs/platform-express",
+        "@nestjs/swagger",
+        "@nestjs/terminus",
+        "@nestjs/testing",
+        "@nestjs/typeorm",
+        "nestjs-eventstore"
+      ],
+      "range": "<=2.0.2 || 7.6.0-next.1 - 11.0.0-next.4",
+      "nodes": [
+        "node_modules/@nestjs/core"
+      ],
+      "fixAvailable": false
+    },
+    "@nestjs/cqrs": {
+      "name": "@nestjs/cqrs",
+      "severity": "high",
+      "isDirect": true,
+      "via": [
+        "@nestjs/core"
+      ],
+      "effects": [
+        "nestjs-eventstore"
+      ],
+      "range": "8.0.0 - 11.0.0-next.2",
+      "nodes": [
+        "node_modules/@nestjs/cqrs"
+      ],
+      "fixAvailable": false
+    },
+    "@nestjs/graphql": {
+      "name": "@nestjs/graphql",
+      "severity": "high",
+      "isDirect": true,
+      "via": [
+        "@nestjs/core",
+        "lodash"
+      ],
+      "effects": [
+        "@nestjs/apollo"
+      ],
+      "range": "6.0.1 - 13.2.3",
+      "nodes": [
+        "node_modules/@nestjs/graphql"
+      ],
+      "fixAvailable": {
+        "name": "@nestjs/graphql",
+        "version": "13.2.4",
+        "isSemVerMajor": true
+      }
+    },
+    "@nestjs/microservices": {
+      "name": "@nestjs/microservices",
+      "severity": "high",
+      "isDirect": true,
+      "via": [
+        "@nestjs/core"
+      ],
+      "effects": [
+        "@nestjs/core",
+        "@nestjs/terminus"
+      ],
+      "range": "8.0.0-alpha.1 - 11.0.0-next.4",
+      "nodes": [
+        "node_modules/@nestjs/microservices"
+      ],
+      "fixAvailable": false
+    },
+    "@nestjs/platform-express": {
+      "name": "@nestjs/platform-express",
+      "severity": "high",
+      "isDirect": true,
+      "via": [
+        "@nestjs/core",
+        "multer"
+      ],
+      "effects": [
+        "@nestjs/core",
+        "@nestjs/testing"
+      ],
+      "range": "<=11.1.14 || >=12.0.0-alpha.0",
+      "nodes": [
+        "node_modules/@nestjs/platform-express"
+      ],
+      "fixAvailable": false
+    },
+    "@nestjs/swagger": {
+      "name": "@nestjs/swagger",
+      "severity": "high",
+      "isDirect": true,
+      "via": [
+        "@nestjs/core",
+        "js-yaml",
+        "lodash"
+      ],
+      "effects": [
+        "nestjs-paginate"
+      ],
+      "range": "1.1.0 - 1.1.4 || 3.0.1 - 11.2.5",
+      "nodes": [
+        "node_modules/@nestjs/swagger"
+      ],
+      "fixAvailable": {
+        "name": "@nestjs/swagger",
+        "version": "11.2.6",
+        "isSemVerMajor": true
+      }
+    },
+    "@nestjs/terminus": {
+      "name": "@nestjs/terminus",
+      "severity": "high",
+      "isDirect": true,
+      "via": [
+        "@nestjs/core",
+        "@nestjs/microservices",
+        "@nestjs/typeorm"
+      ],
+      "effects": [],
+      "range": "8.0.0-next.0 - 10.3.0",
+      "nodes": [
+        "node_modules/@nestjs/terminus"
+      ],
+      "fixAvailable": {
+        "name": "@nestjs/terminus",
+        "version": "11.1.1",
+        "isSemVerMajor": true
+      }
+    },
+    "@nestjs/testing": {
+      "name": "@nestjs/testing",
+      "severity": "high",
+      "isDirect": true,
+      "via": [
+        "@nestjs/core",
+        "@nestjs/microservices",
+        "@nestjs/platform-express"
+      ],
+      "effects": [],
+      "range": "7.6.0-next.1 - 11.0.0-next.4",
+      "nodes": [
+        "node_modules/@nestjs/testing"
+      ],
+      "fixAvailable": {
+        "name": "@nestjs/testing",
+        "version": "11.1.17",
+        "isSemVerMajor": true
+      }
+    },
+    "@nestjs/typeorm": {
+      "name": "@nestjs/typeorm",
+      "severity": "high",
+      "isDirect": true,
+      "via": [
+        "@nestjs/core"
+      ],
+      "effects": [],
+      "range": "8.0.0 - 10.0.2",
+      "nodes": [
+        "node_modules/@nestjs/typeorm"
+      ],
+      "fixAvailable": {
+        "name": "@nestjs/typeorm",
+        "version": "11.0.0",
+        "isSemVerMajor": true
+      }
+    },
+    "@tootallnate/once": {
+      "name": "@tootallnate/once",
+      "severity": "low",
+      "isDirect": false,
+      "via": [
+        {
+          "source": 1113977,
+          "name": "@tootallnate/once",
+          "dependency": "@tootallnate/once",
+          "title": "@tootallnate/once vulnerable to Incorrect Control Flow Scoping",
+          "url": "https://github.com/advisories/GHSA-vpq2-c234-7xj6",
+          "severity": "low",
+          "cwe": [
+            "CWE-705"
+          ],
+          "cvss": {
+            "score": 3.3,
+            "vectorString": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:L"
+          },
+          "range": "<3.0.1"
+        }
+      ],
+      "effects": [
+        "http-proxy-agent"
+      ],
+      "range": "<3.0.1",
+      "nodes": [
+        "node_modules/@tootallnate/once"
+      ],
+      "fixAvailable": {
+        "name": "@google-cloud/logging-winston",
+        "version": "6.0.1",
+        "isSemVerMajor": true
+      }
+    },
+    "@typescript-eslint/eslint-plugin": {
+      "name": "@typescript-eslint/eslint-plugin",
+      "severity": "high",
+      "isDirect": true,
+      "via": [
+        "@typescript-eslint/type-utils",
+        "@typescript-eslint/utils"
+      ],
+      "effects": [],
+      "range": "6.16.0 - 7.5.0",
+      "nodes": [
+        "node_modules/@typescript-eslint/eslint-plugin"
+      ],
+      "fixAvailable": true
+    },
+    "@typescript-eslint/parser": {
+      "name": "@typescript-eslint/parser",
+      "severity": "high",
+      "isDirect": true,
+      "via": [
+        "@typescript-eslint/typescript-estree"
+      ],
+      "effects": [],
+      "range": "6.16.0 - 7.5.0",
+      "nodes": [
+        "node_modules/@typescript-eslint/parser"
+      ],
+      "fixAvailable": true
+    },
+    "@typescript-eslint/type-utils": {
+      "name": "@typescript-eslint/type-utils",
+      "severity": "high",
+      "isDirect": false,
+      "via": [
+        "@typescript-eslint/typescript-estree",
+        "@typescript-eslint/utils"
+      ],
+      "effects": [
+        "@typescript-eslint/eslint-plugin"
+      ],
+      "range": "6.16.0 - 7.5.0",
+      "nodes": [
+        "node_modules/@typescript-eslint/type-utils"
+      ],
+      "fixAvailable": true
+    },
+    "@typescript-eslint/typescript-estree": {
+      "name": "@typescript-eslint/typescript-estree",
+      "severity": "high",
+      "isDirect": false,
+      "via": [
+        "minimatch"
+      ],
+      "effects": [
+        "@typescript-eslint/parser",
+        "@typescript-eslint/type-utils",
+        "@typescript-eslint/utils"
+      ],
+      "range": "6.16.0 - 7.5.0",
+      "nodes": [
+        "node_modules/@typescript-eslint/typescript-estree"
+      ],
+      "fixAvailable": true
+    },
+    "@typescript-eslint/utils": {
+      "name": "@typescript-eslint/utils",
+      "severity": "high",
+      "isDirect": false,
+      "via": [
+        "@typescript-eslint/typescript-estree"
+      ],
+      "effects": [],
+      "range": "6.16.0 - 7.5.0",
+      "nodes": [
+        "node_modules/@typescript-eslint/utils"
+      ],
+      "fixAvailable": true
+    },
+    "apollo-server-core": {
+      "name": "apollo-server-core",
+      "severity": "moderate",
+      "isDirect": false,
+      "via": [
+        {
+          "source": 1115451,
+          "name": "apollo-server-core",
+          "dependency": "apollo-server-core",
+          "title": "Apollo Server: Browser bug allows for bypass of XS-Search (read-only Cross-Site Request Forgery) prevention",
+          "url": "https://github.com/advisories/GHSA-9q82-xgwf-vj6h",
+          "severity": "moderate",
+          "cwe": [
+            "CWE-200"
+          ],
+          "cvss": {
+            "score": 0,
+            "vectorString": null
+          },
+          "range": "<=3.13.0"
+        }
+      ],
+      "effects": [
+        "apollo-server-express"
+      ],
+      "range": "*",
+      "nodes": [
+        "node_modules/apollo-server-core"
+      ],
+      "fixAvailable": false
+    },
+    "apollo-server-express": {
+      "name": "apollo-server-express",
+      "severity": "moderate",
+      "isDirect": true,
+      "via": [
+        "apollo-server-core"
+      ],
+      "effects": [],
+      "range": "*",
+      "nodes": [
+        "node_modules/apollo-server-express"
+      ],
+      "fixAvailable": false
+    },
+    "aws-sdk": {
+      "name": "aws-sdk",
+      "severity": "low",
+      "isDirect": true,
+      "via": [
+        {
+          "source": 1111997,
+          "name": "aws-sdk",
+          "dependency": "aws-sdk",
+          "title": "JavaScript SDK v2 users should add validation to the region parameter value in or migrate to v3",
+          "url": "https://github.com/advisories/GHSA-j965-2qgj-vjmq",
+          "severity": "low",
+          "cwe": [
+            "CWE-20"
+          ],
+          "cvss": {
+            "score": 3.7,
+            "vectorString": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:L/I:N/A:N"
+          },
+          "range": ">=2.0.0 <=3.0.0"
+        }
+      ],
+      "effects": [],
+      "range": ">=2.0.1",
+      "nodes": [
+        "node_modules/aws-sdk"
+      ],
+      "fixAvailable": {
+        "name": "aws-sdk",
+        "version": "1.18.0",
+        "isSemVerMajor": true
+      }
+    },
+    "commitizen": {
+      "name": "commitizen",
+      "severity": "moderate",
+      "isDirect": false,
+      "via": [
+        "inquirer",
+        "lodash"
+      ],
+      "effects": [],
+      "range": ">=2.5.1",
+      "nodes": [
+        "node_modules/commitizen"
+      ],
+      "fixAvailable": true
+    },
+    "external-editor": {
+      "name": "external-editor",
+      "severity": "low",
+      "isDirect": false,
+      "via": [
+        "tmp"
+      ],
+      "effects": [
+        "inquirer"
+      ],
+      "range": ">=1.1.1",
+      "nodes": [
+        "node_modules/external-editor"
+      ],
+      "fixAvailable": true
+    },
+    "fastify": {
+      "name": "fastify",
+      "severity": "high",
+      "isDirect": false,
+      "via": [
+        {
+          "source": 1112876,
+          "name": "fastify",
+          "dependency": "fastify",
+          "title": "Fastify Vulnerable to DoS via Unbounded Memory Allocation in sendWebStream",
+          "url": "https://github.com/advisories/GHSA-mrq3-vjjr-p77c",
+          "severity": "low",
+          "cwe": [
+            "CWE-770"
+          ],
+          "cvss": {
+            "score": 3.7,
+            "vectorString": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:L"
+          },
+          "range": "<=5.7.2"
+        },
+        {
+          "source": 1112877,
+          "name": "fastify",
+          "dependency": "fastify",
+          "title": "Fastify's Content-Type header tab character allows body validation bypass",
+          "url": "https://github.com/advisories/GHSA-jx2c-rxcm-jvmq",
+          "severity": "high",
+          "cwe": [
+            "CWE-436"
+          ],
+          "cvss": {
+            "score": 7.5,
+            "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:N"
+          },
+          "range": "<5.7.2"
+        },
+        {
+          "source": 1115367,
+          "name": "fastify",
+          "dependency": "fastify",
+          "title": "fastify: request.protocol and request.host Spoofable via X-Forwarded-Proto/Host from Untrusted Connections",
+          "url": "https://github.com/advisories/GHSA-444r-cwp2-x5xf",
+          "severity": "moderate",
+          "cwe": [
+            "CWE-348"
+          ],
+          "cvss": {
+            "score": 6.1,
+            "vectorString": "CVSS:3.1/AV:A/AC:H/PR:N/UI:N/S:C/C:H/I:N/A:N"
+          },
+          "range": "<=5.8.2"
+        }
+      ],
+      "effects": [
+        "nestjs-paginate"
+      ],
+      "range": "<=5.8.2",
+      "nodes": [
+        "node_modules/fastify"
+      ],
+      "fixAvailable": {
+        "name": "nestjs-paginate",
+        "version": "12.9.0",
+        "isSemVerMajor": true
+      }
+    },
+    "file-type": {
+      "name": "file-type",
+      "severity": "moderate",
+      "isDirect": false,
+      "via": [
+        {
+          "source": 1114301,
+          "name": "file-type",
+          "dependency": "file-type",
+          "title": "file-type affected by infinite loop in ASF parser on malformed input with zero-size sub-header",
+          "url": "https://github.com/advisories/GHSA-5v7r-6r5c-r473",
+          "severity": "moderate",
+          "cwe": [
+            "CWE-835"
+          ],
+          "cvss": {
+            "score": 5.3,
+            "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L"
+          },
+          "range": ">=13.0.0 <21.3.1"
+        },
+        {
+          "source": 1114726,
+          "name": "file-type",
+          "dependency": "file-type",
+          "title": "file-type: ZIP Decompression Bomb DoS via [Content_Types].xml entry",
+          "url": "https://github.com/advisories/GHSA-j47w-4g3g-c36v",
+          "severity": "moderate",
+          "cwe": [
+            "CWE-400",
+            "CWE-409"
+          ],
+          "cvss": {
+            "score": 5.3,
+            "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L"
+          },
+          "range": ">=20.0.0 <=21.3.1"
+        }
+      ],
+      "effects": [
+        "@nestjs/common"
+      ],
+      "range": "13.0.0 - 21.3.1",
+      "nodes": [
+        "node_modules/file-type"
+      ],
+      "fixAvailable": true
+    },
+    "google-gax": {
+      "name": "google-gax",
+      "severity": "critical",
+      "isDirect": false,
+      "via": [
+        "protobufjs"
+      ],
+      "effects": [
+        "@google-cloud/logging"
+      ],
+      "range": "2.2.1-pre - 2.2.1-pre.2 || 2.28.2-alpha.1 - 2.28.4-alpha.1 || 3.1.4 - 4.0.3",
+      "nodes": [
+        "node_modules/google-gax"
+      ],
+      "fixAvailable": {
+        "name": "@google-cloud/logging-winston",
+        "version": "6.0.1",
+        "isSemVerMajor": true
+      }
+    },
+    "http-proxy-agent": {
+      "name": "http-proxy-agent",
+      "severity": "low",
+      "isDirect": false,
+      "via": [
+        "@tootallnate/once"
+      ],
+      "effects": [
+        "teeny-request"
+      ],
+      "range": "4.0.1 - 5.0.0",
+      "nodes": [
+        "node_modules/teeny-request/node_modules/http-proxy-agent"
+      ],
+      "fixAvailable": {
+        "name": "@google-cloud/logging-winston",
+        "version": "6.0.1",
+        "isSemVerMajor": true
+      }
+    },
+    "inquirer": {
+      "name": "inquirer",
+      "severity": "low",
+      "isDirect": false,
+      "via": [
+        "external-editor"
+      ],
+      "effects": [
+        "commitizen"
+      ],
+      "range": "3.0.0 - 8.2.6 || 9.0.0 - 9.3.7",
+      "nodes": [
+        "node_modules/commitizen/node_modules/inquirer"
+      ],
+      "fixAvailable": true
+    },
+    "js-yaml": {
+      "name": "js-yaml",
+      "severity": "moderate",
+      "isDirect": false,
+      "via": [
+        {
+          "source": 1112715,
+          "name": "js-yaml",
+          "dependency": "js-yaml",
+          "title": "js-yaml has prototype pollution in merge (<<)",
+          "url": "https://github.com/advisories/GHSA-mh29-5h37-fv8m",
+          "severity": "moderate",
+          "cwe": [
+            "CWE-1321"
+          ],
+          "cvss": {
+            "score": 5.3,
+            "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N"
+          },
+          "range": ">=4.0.0 <4.1.1"
+        }
+      ],
+      "effects": [
+        "@nestjs/swagger"
+      ],
+      "range": "4.0.0 - 4.1.0",
+      "nodes": [
+        "node_modules/js-yaml"
+      ],
+      "fixAvailable": {
+        "name": "@nestjs/swagger",
+        "version": "11.2.6",
+        "isSemVerMajor": true
+      }
+    },
+    "lint-staged": {
+      "name": "lint-staged",
+      "severity": "moderate",
+      "isDirect": true,
+      "via": [
+        "micromatch",
+        "yaml"
+      ],
+      "effects": [],
+      "range": "7.0.0 - 8.2.1 || 13.3.0 - 15.4.1 || 16.2.0",
+      "nodes": [
+        "node_modules/lint-staged"
+      ],
+      "fixAvailable": true
+    },
+    "lodash": {
+      "name": "lodash",
+      "severity": "high",
+      "isDirect": false,
+      "via": [
+        {
+          "source": 1112455,
+          "name": "lodash",
+          "dependency": "lodash",
+          "title": "Lodash has Prototype Pollution Vulnerability in `_.unset` and `_.omit` functions",
+          "url": "https://github.com/advisories/GHSA-xxjr-mmjv-4gpg",
+          "severity": "moderate",
+          "cwe": [
+            "CWE-1321"
+          ],
+          "cvss": {
+            "score": 6.5,
+            "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:L"
+          },
+          "range": ">=4.0.0 <=4.17.22"
+        },
+        {
+          "source": 1115806,
+          "name": "lodash",
+          "dependency": "lodash",
+          "title": "lodash vulnerable to Code Injection via `_.template` imports key names",
+          "url": "https://github.com/advisories/GHSA-r5fr-rjxr-66jc",
+          "severity": "high",
+          "cwe": [
+            "CWE-94"
+          ],
+          "cvss": {
+            "score": 8.1,
+            "vectorString": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H"
+          },
+          "range": ">=4.0.0 <=4.17.23"
+        },
+        {
+          "source": 1115810,
+          "name": "lodash",
+          "dependency": "lodash",
+          "title": "lodash vulnerable to Prototype Pollution via array path bypass in `_.unset` and `_.omit`",
+          "url": "https://github.com/advisories/GHSA-f23m-r3pf-42rh",
+          "severity": "moderate",
+          "cwe": [
+            "CWE-1321"
+          ],
+          "cvss": {
+            "score": 6.5,
+            "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:L"
+          },
+          "range": "<=4.17.23"
+        }
+      ],
+      "effects": [
+        "@nestjs/graphql",
+        "@nestjs/swagger",
+        "commitizen"
+      ],
+      "range": "<=4.17.23",
+      "nodes": [
+        "node_modules/@nestjs/graphql/node_modules/lodash",
+        "node_modules/@nestjs/swagger/node_modules/lodash",
+        "node_modules/commitizen/node_modules/lodash"
+      ],
+      "fixAvailable": {
+        "name": "@nestjs/swagger",
+        "version": "11.2.6",
+        "isSemVerMajor": true
+      }
+    },
+    "micromatch": {
+      "name": "micromatch",
+      "severity": "moderate",
+      "isDirect": false,
+      "via": [
+        {
+          "source": 1098681,
+          "name": "micromatch",
+          "dependency": "micromatch",
+          "title": "Regular Expression Denial of Service (ReDoS) in micromatch",
+          "url": "https://github.com/advisories/GHSA-952p-6rrq-rcjv",
+          "severity": "moderate",
+          "cwe": [
+            "CWE-1333"
+          ],
+          "cvss": {
+            "score": 5.3,
+            "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L"
+          },
+          "range": "<4.0.8"
+        }
+      ],
+      "effects": [
+        "lint-staged"
+      ],
+      "range": "<4.0.8",
+      "nodes": [
+        "node_modules/lint-staged/node_modules/micromatch"
+      ],
+      "fixAvailable": true
+    },
+    "minimatch": {
+      "name": "minimatch",
+      "severity": "high",
+      "isDirect": false,
+      "via": [
+        {
+          "source": 1113465,
+          "name": "minimatch",
+          "dependency": "minimatch",
+          "title": "minimatch has a ReDoS via repeated wildcards with non-matching literal in pattern",
+          "url": "https://github.com/advisories/GHSA-3ppc-4f35-3m26",
+          "severity": "high",
+          "cwe": [
+            "CWE-1333"
+          ],
+          "cvss": {
+            "score": 0,
+            "vectorString": null
+          },
+          "range": ">=9.0.0 <9.0.6"
+        },
+        {
+          "source": 1113544,
+          "name": "minimatch",
+          "dependency": "minimatch",
+          "title": "minimatch has ReDoS: matchOne() combinatorial backtracking via multiple non-adjacent GLOBSTAR segments",
+          "url": "https://github.com/advisories/GHSA-7r86-cg39-jmmj",
+          "severity": "high",
+          "cwe": [
+            "CWE-407"
+          ],
+          "cvss": {
+            "score": 7.5,
+            "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+          },
+          "range": ">=9.0.0 <9.0.7"
+        },
+        {
+          "source": 1113552,
+          "name": "minimatch",
+          "dependency": "minimatch",
+          "title": "minimatch ReDoS: nested *() extglobs generate catastrophically backtracking regular expressions",
+          "url": "https://github.com/advisories/GHSA-23c5-xmqv-rm74",
+          "severity": "high",
+          "cwe": [
+            "CWE-1333"
+          ],
+          "cvss": {
+            "score": 7.5,
+            "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+          },
+          "range": ">=9.0.0 <9.0.7"
+        }
+      ],
+      "effects": [
+        "@typescript-eslint/typescript-estree"
+      ],
+      "range": "9.0.0 - 9.0.6",
+      "nodes": [
+        "node_modules/minimatch"
+      ],
+      "fixAvailable": true
+    },
+    "multer": {
+      "name": "multer",
+      "severity": "high",
+      "isDirect": false,
+      "via": [
+        {
+          "source": 1113635,
+          "name": "multer",
+          "dependency": "multer",
+          "title": "Multer vulnerable to Denial of Service via incomplete cleanup",
+          "url": "https://github.com/advisories/GHSA-xf7r-hgr6-v32p",
+          "severity": "high",
+          "cwe": [
+            "CWE-459"
+          ],
+          "cvss": {
+            "score": 0,
+            "vectorString": null
+          },
+          "range": "<2.1.0"
+        },
+        {
+          "source": 1113636,
+          "name": "multer",
+          "dependency": "multer",
+          "title": "Multer vulnerable to Denial of Service via resource exhaustion",
+          "url": "https://github.com/advisories/GHSA-v52c-386h-88mc",
+          "severity": "high",
+          "cwe": [
+            "CWE-772"
+          ],
+          "cvss": {
+            "score": 0,
+            "vectorString": null
+          },
+          "range": "<2.1.0"
+        },
+        {
+          "source": 1113996,
+          "name": "multer",
+          "dependency": "multer",
+          "title": "Multer Vulnerable to Denial of Service via Uncontrolled Recursion",
+          "url": "https://github.com/advisories/GHSA-5528-5vmv-3xc2",
+          "severity": "high",
+          "cwe": [
+            "CWE-674"
+          ],
+          "cvss": {
+            "score": 0,
+            "vectorString": null
+          },
+          "range": "<2.1.1"
+        }
+      ],
+      "effects": [
+        "@nestjs/platform-express"
+      ],
+      "range": "<=2.1.0",
+      "nodes": [
+        "node_modules/multer"
+      ],
+      "fixAvailable": false
+    },
+    "nestjs-eventstore": {
+      "name": "nestjs-eventstore",
+      "severity": "high",
+      "isDirect": true,
+      "via": [
+        "@nestjs/core",
+        "@nestjs/cqrs"
+      ],
+      "effects": [],
+      "range": ">=2.1.0",
+      "nodes": [
+        "node_modules/nestjs-eventstore"
+      ],
+      "fixAvailable": false
+    },
+    "nestjs-paginate": {
+      "name": "nestjs-paginate",
+      "severity": "moderate",
+      "isDirect": true,
+      "via": [
+        "@nestjs/swagger",
+        "fastify"
+      ],
+      "effects": [],
+      "range": "2.3.0 - 10.0.0",
+      "nodes": [
+        "node_modules/nestjs-paginate"
+      ],
+      "fixAvailable": {
+        "name": "nestjs-paginate",
+        "version": "12.9.0",
+        "isSemVerMajor": true
+      }
+    },
+    "protobufjs": {
+      "name": "protobufjs",
+      "severity": "critical",
+      "isDirect": false,
+      "via": [
+        {
+          "source": 1097722,
+          "name": "protobufjs",
+          "dependency": "protobufjs",
+          "title": "protobufjs Prototype Pollution vulnerability",
+          "url": "https://github.com/advisories/GHSA-h755-8qp9-cq85",
+          "severity": "critical",
+          "cwe": [
+            "CWE-1321"
+          ],
+          "cvss": {
+            "score": 9.8,
+            "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H"
+          },
+          "range": ">=7.0.0 <7.2.5"
+        }
+      ],
+      "effects": [
+        "google-gax"
+      ],
+      "range": "7.0.0 - 7.2.4",
+      "nodes": [
+        "node_modules/protobufjs"
+      ],
+      "fixAvailable": {
+        "name": "@google-cloud/logging-winston",
+        "version": "6.0.1",
+        "isSemVerMajor": true
+      }
+    },
+    "teeny-request": {
+      "name": "teeny-request",
+      "severity": "low",
+      "isDirect": false,
+      "via": [
+        "http-proxy-agent"
+      ],
+      "effects": [
+        "@google-cloud/common"
+      ],
+      "range": "7.1.3 - 10.1.0",
+      "nodes": [
+        "node_modules/teeny-request"
+      ],
+      "fixAvailable": {
+        "name": "@google-cloud/logging-winston",
+        "version": "6.0.1",
+        "isSemVerMajor": true
+      }
+    },
+    "tmp": {
+      "name": "tmp",
+      "severity": "low",
+      "isDirect": false,
+      "via": [
+        {
+          "source": 1109537,
+          "name": "tmp",
+          "dependency": "tmp",
+          "title": "tmp allows arbitrary temporary file / directory write via symbolic link `dir` parameter",
+          "url": "https://github.com/advisories/GHSA-52f5-9888-hmc6",
+          "severity": "low",
+          "cwe": [
+            "CWE-59"
+          ],
+          "cvss": {
+            "score": 2.5,
+            "vectorString": "CVSS:3.1/AV:L/AC:H/PR:L/UI:N/S:U/C:N/I:L/A:N"
+          },
+          "range": "<=0.2.3"
+        }
+      ],
+      "effects": [
+        "external-editor"
+      ],
+      "range": "<=0.2.3",
+      "nodes": [
+        "node_modules/external-editor/node_modules/tmp"
+      ],
+      "fixAvailable": true
+    },
+    "xml2js": {
+      "name": "xml2js",
+      "severity": "moderate",
+      "isDirect": true,
+      "via": [
+        {
+          "source": 1096693,
+          "name": "xml2js",
+          "dependency": "xml2js",
+          "title": "xml2js is vulnerable to prototype pollution",
+          "url": "https://github.com/advisories/GHSA-776f-qx25-q3cc",
+          "severity": "moderate",
+          "cwe": [
+            "CWE-1321"
+          ],
+          "cvss": {
+            "score": 5.3,
+            "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N"
+          },
+          "range": "<0.5.0"
+        }
+      ],
+      "effects": [],
+      "range": "<0.5.0",
+      "nodes": [
+        "node_modules/xml2js"
+      ],
+      "fixAvailable": {
+        "name": "xml2js",
+        "version": "0.6.2",
+        "isSemVerMajor": true
+      }
+    },
+    "yaml": {
+      "name": "yaml",
+      "severity": "moderate",
+      "isDirect": false,
+      "via": [
+        {
+          "source": 1115556,
+          "name": "yaml",
+          "dependency": "yaml",
+          "title": "yaml is vulnerable to Stack Overflow via deeply nested YAML collections",
+          "url": "https://github.com/advisories/GHSA-48c2-rrv3-qjmp",
+          "severity": "moderate",
+          "cwe": [
+            "CWE-674"
+          ],
+          "cvss": {
+            "score": 4.3,
+            "vectorString": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:L"
+          },
+          "range": ">=2.0.0 <2.8.3"
+        }
+      ],
+      "effects": [
+        "lint-staged"
+      ],
+      "range": "2.0.0 - 2.8.2",
+      "nodes": [
+        "node_modules/yaml"
+      ],
+      "fixAvailable": true
+    }
+  },
+  "metadata": {
+    "vulnerabilities": {
+      "info": 0,
+      "low": 8,
+      "moderate": 13,
+      "high": 20,
+      "critical": 4,
+      "total": 45
+    },
+    "dependencies": {
+      "prod": 827,
+      "dev": 621,
+      "optional": 46,
+      "peer": 45,
+      "peerOptional": 0,
+      "total": 1514
+    }
+  }
+}

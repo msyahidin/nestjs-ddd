@@ -1,5 +1,5 @@
 import { ArgumentsHost, Catch, ExceptionFilter, HttpException, HttpStatus, NotFoundException } from '@nestjs/common';
-import { getI18nContextFromArgumentsHost, I18n, I18nService } from 'nestjs-i18n';
+import { I18nContext } from 'nestjs-i18n';
 import { EntityNotFoundError } from 'typeorm';
 import { Request, Response } from 'express';
 
@@ -10,14 +10,13 @@ export class NotFoundExceptionFilter implements ExceptionFilter {
     constructor(private readonly _logger: LoggerService) {}
 
     catch(_exception: HttpException, host: ArgumentsHost) {
-        const i18n = getI18nContextFromArgumentsHost(host);
+        this._logger.warn(`NotFoundExceptionFilter: ${_exception.message}`);
+        const i18n = I18nContext.current(host);
         const ctx = host.switchToHttp();
         const response = ctx.getResponse<Response>();
         const request = ctx.getRequest<Request>();
         const message = i18n.t('error.NOT_FOUND');
         let code = HttpStatus.INTERNAL_SERVER_ERROR;
-        const statusCode = _exception.getStatus ? _exception.getStatus() : HttpStatus.INTERNAL_SERVER_ERROR;
-        const errorCode = typeof response === 'object' ? (response as any).errorCode : statusCode;
         let detail = (_exception as any).message.message;
 
         if (request) {

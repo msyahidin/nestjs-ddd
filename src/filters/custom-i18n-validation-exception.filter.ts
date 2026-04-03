@@ -2,11 +2,10 @@ import {
     ArgumentsHost,
     Catch,
     ExceptionFilter,
-    HttpStatus,
     ValidationError,
 } from '@nestjs/common';
 import {
-    getI18nContextFromArgumentsHost,
+    I18nContext,
     I18nValidationError,
     I18nValidationException,
 } from 'nestjs-i18n';
@@ -30,7 +29,7 @@ export class CustomI18nValidationExceptionFilter implements ExceptionFilter {
         },
     ) {}
     catch(exception: I18nValidationException, host: ArgumentsHost) {
-        const i18n = getI18nContextFromArgumentsHost(host);
+        const i18n = I18nContext.current(host);
 
         const errors = formatI18nErrors(exception.errors ?? [], i18n.service, {
             lang: i18n.lang,
@@ -39,9 +38,6 @@ export class CustomI18nValidationExceptionFilter implements ExceptionFilter {
         switch (host.getType() as string) {
             case 'http':
                 const response = host.switchToHttp().getResponse();
-                const statusCode = exception.getStatus
-                    ? exception.getStatus()
-                    : HttpStatus.INTERNAL_SERVER_ERROR;
                 response
                     .status(
                         this.options.errorHttpStatusCode ||
@@ -74,7 +70,7 @@ export class CustomI18nValidationExceptionFilter implements ExceptionFilter {
                 return this.flattenValidationErrors(validationErrors);
             case !this.options.detailedErrors &&
                 'errorFormatter' in this.options:
-                return this.options.errorFormatter(validationErrors);
+                return (this.options as I18nValidationExceptionFilterErrorFormatterOption).errorFormatter(validationErrors);
             default:
                 return validationErrors;
         }

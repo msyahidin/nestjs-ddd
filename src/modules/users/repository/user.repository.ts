@@ -1,8 +1,8 @@
 import { Repository } from 'typeorm';
-import { v4 as uuidv4 } from 'uuid';
 
 import { UserRegisterDto } from '../dtos/user-register.dto';
 import { User } from '../entities/user.entity';
+import { v4 as uuidv4 } from 'uuid';
 
 export class UserRepository extends Repository<User> {
     async createUser(userRegisterDto: UserRegisterDto) {
@@ -15,7 +15,7 @@ export class UserRepository extends Repository<User> {
     }
 
     async updateUser(userDto) {
-        const updateResult = await super.update({ id: userDto.id }, userDto);
+        await super.update({ id: userDto.id }, userDto);
         const updatedUser = await super.findOne(userDto);
         updatedUser.update();
         return updatedUser;
