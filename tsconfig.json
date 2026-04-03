@@ -3,19 +3,22 @@
         "module": "commonjs",
         "declaration": false,
         "noImplicitAny": false,
+        "noUnusedLocals": true,
+        "allowSyntheticDefaultImports": true,
         "removeComments": true,
         "noLib": false,
-        "allowSyntheticDefaultImports": true,
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
-        "target": "es2017",
+        "target": "ES2021",
         "sourceMap": true,
         "allowJs": true,
         "outDir": "./dist",
+        "baseUrl": "./"
         "baseUrl": "./",
         "incremental": true
     },
+    "include": ["src/**/*"],
     "exclude": [
-        "node_modules", "dist"
+        "node_modules", "dist", "**/*.spec.ts"
     ]
 }

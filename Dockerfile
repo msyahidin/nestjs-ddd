@@ -1,5 +1,5 @@
 # ---- Base Node ----
-FROM node:lts-alpine3.9 AS base
+FROM node:16-alpine3.17 AS base
 RUN apk add --no-cache git
 WORKDIR /app
 RUN mkdir src templates
@@ -26,7 +26,7 @@ COPY ./package*.json ./
 RUN npm install --production -d
 
 # --- Release with Alpine ----
-FROM node:lts-alpine3.9 AS release
+FROM node:16-alpine3.17 AS release
 WORKDIR /app
 RUN mkdir dist templates node_modules
 RUN chown -R node:node /app

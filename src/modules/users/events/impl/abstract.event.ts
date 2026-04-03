@@ -1,4 +1,3 @@
-
 import { UserDto } from '../../dtos/user.dto';
 
 export class UserAbstractEvent {

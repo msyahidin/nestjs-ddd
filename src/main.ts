@@ -1,10 +1,3 @@
-import {
-    ClassSerializerInterceptor,
-    NestInterceptor,
-    ValidationPipe,
-    VERSION_NEUTRAL,
-    VersioningType,
-} from '@nestjs/common';
 import { NestFactory, Reflector } from '@nestjs/core';
 import {
     ExpressAdapter,
