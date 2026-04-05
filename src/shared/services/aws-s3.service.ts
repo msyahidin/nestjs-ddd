@@ -1,5 +1,5 @@
+import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
 import { Injectable } from '@nestjs/common';
-import * as AWS from 'aws-sdk';
 import * as mime from 'mime-types';
 
 import { ConfigService } from './config.service';
@@ -8,23 +8,23 @@ import { IFile } from '../../interfaces/IFile';
 
 @Injectable()
 export class AwsS3Service {
-    private readonly _s3: AWS.S3;
+    private readonly _s3: S3Client;
 
     constructor(
         public configService: ConfigService,
         public generatorService: GeneratorService,
     ) {
-        const options: AWS.S3.Types.ClientConfiguration = {
-            apiVersion: '2010-12-01',
-            region: 'eu-central-1', // TODO: update those configs
-        };
-
         const awsS3Config = configService.awsS3Config;
-        if (awsS3Config.accessKeyId && awsS3Config.secretAccessKey) {
-            options.credentials = awsS3Config;
-        }
-
-        this._s3 = new AWS.S3(options);
+        this._s3 = new S3Client({
+            region: 'eu-central-1', // TODO: update those configs
+            ...(awsS3Config.accessKeyId &&
+                awsS3Config.secretAccessKey && {
+                    credentials: {
+                        accessKeyId: awsS3Config.accessKeyId,
+                        secretAccessKey: awsS3Config.secretAccessKey,
+                    },
+                }),
+        });
     }
 
     async uploadImage(file: IFile) {
@@ -32,14 +32,14 @@ export class AwsS3Service {
             mime.extension(file.mimetype) as string,
         );
         const key = 'images/' + fileName;
-        await this._s3
-            .putObject({
+        await this._s3.send(
+            new PutObjectCommand({
                 Bucket: this.configService.awsS3Config.bucketName,
                 Body: file.buffer,
                 ACL: 'public-read',
                 Key: key,
-            })
-            .promise();
+            }),
+        );
 
         return key;
     }

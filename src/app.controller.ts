@@ -30,19 +30,6 @@ export class AppController {
     @Get('healthcheck')
     @HealthCheck()
     healthCheck() {
-        return this.health.check([
-            // async () =>
-            // this.microservice.pingCheck('EventStore', {
-            //     // TODO: design a custom EventStore healthIndicator
-            //     transport: Transport.TCP,
-            //     options: {
-            //         host: this.configService.get('EVENT_STORE_HOSTNAME'),
-            //         port: this.configService.getNumber(
-            //             'EVENT_STORE_TCP_PORT',
-            //         ),
-            //     },
-            // }),
-            async () => this.db.pingCheck('database'),
-        ]);
+        return this.health.check([async () => this.db.pingCheck('database')]);
     }
 }
