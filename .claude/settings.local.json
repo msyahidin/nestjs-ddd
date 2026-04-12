@@ -11,7 +11,8 @@
       "Bash(export PATH=\"/Users/msyahidin/.nvm/versions/node/v22.13.1/bin:$PATH\")",
       "Bash(npm install:*)",
       "Bash(export PATH=/Users/msyahidin/.nvm/versions/node/v22.13.1/bin:$PATH)",
-      "Bash(npm run:*)"
+      "Bash(npm run:*)",
+      "Bash(npm uninstall:*)"
     ]
   }
 }
